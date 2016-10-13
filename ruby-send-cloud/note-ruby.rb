@@ -42,5 +42,6 @@ return response
 end
 
 response = send_mail
+
 puts response.code
 puts response.to_str
