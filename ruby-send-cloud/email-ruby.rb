@@ -7,9 +7,9 @@ require 'json'
 def send_mail
         vars = JSON.dump({"to" => ['582865471@qq.com'], "sub" => { "%code%" => ['123456']} })
         response = RestClient.post "http://sendcloud.sohu.com/webapi/mail.send_template.json",
-        :api_user => "JieTrancender_test_DJB4se", # Ê¹ÓÃapi_userºÍapi_key½øĞĞÑéÖ¤
+        :api_user => "JieTrancender_test_DJB4se", # Ê¹ï¿½ï¿½api_userï¿½ï¿½api_keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
         :api_key => "5CuJE56Bn9QNzNW9",
-        :from => "jie-email@jie-trancender.org", # ·¢ĞÅÈË£¬ÓÃÕıÈ·ÓÊ¼şµØÖ·Ìæ´ú
+        :from => "jie-email@jie-trancender.org", # ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½Ê¼ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
         :fromname => "SendCloud",
         :substitution_vars => vars,
         :template_invoke_name => 'test',
