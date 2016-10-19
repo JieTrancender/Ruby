@@ -1,7 +1,9 @@
 ## Ruby 学习历程
 
-### algorithm
+## Algorithm
 
-### ruby_meta_programming
+## Ruby_meta_programming
 
-[代码链接](./ruby_meta_programming/class_definitions.rb)
+### Chapter four Class Definitions
+1. [README.md](./ruby_meta_programming/README.md)
+1. [class_definitions.rb](./ruby_meta_programming/class_definitions.rb)
