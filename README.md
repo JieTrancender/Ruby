@@ -1,9 +1,10 @@
-## Ruby 学习历程
+## Ruby Programming Language
 
 ## Algorithm
 
-## Ruby_meta_programming
+## SendCloud
 
-### Chapter four Class Definitions
-1. [README.md](./ruby_meta_programming/README.md)
-1. [class_definitions.rb](./ruby_meta_programming/class_definitions.rb)
+## Ruby_meta_programming
+### [1. Chapter four - Class Definitions](./ruby_meta_programming)
+> [README.md](./ruby_meta_programming/README.md)    
+> [class_definitions.rb](./ruby_meta_programming/class_definitions.rb)
