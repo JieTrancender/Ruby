@@ -45,6 +45,39 @@ end
 class SongList
 	MAX_TIME = 5 * 60
 
+	def initialize
+		@songs = Array.new
+	end
+
+	def append(song)
+		@songs.push(song)
+		self
+	end
+
+	def delete_first
+		@songs.shift
+	end
+
+	def delete_last
+		@songs.pop
+	end
+
+	def [](index)
+		@songs[index]
+	end
+
+	#def with_title(title)
+	#	for i in 0...@songs.length
+	#		return @songs[i] if title == @songs[i].name
+	#	end
+	#	return nil
+	#end
+
+	def with_title(title)
+		@songs.find { |song| title == song.name}
+	end
+	
+
 	class << self
 		def is_too_long(song)
 			return song.duration > MAX_TIME
@@ -86,3 +119,22 @@ s2 = Song.new("song_two", "artist_two", 234)
 #		assert_equal("Bicyclops", song.name)
 #	end
 #end
+
+require 'minitest/autorun'
+
+class SongTest < Minitest::Test
+	def test_delete
+		list = SongList.new
+		s1 = Song.new("title1", "artist1", 123)
+		s2 = Song.new("title2", "artist2", 234)
+		s3 = Song.new("title3", "artest3", 345)
+
+		list.append(s1).append(s2).append(s3)
+
+		assert_equal(s1, list.delete_first)
+		assert_equal(s2, list.delete_first)
+		assert_equal(s3, list.delete_last)
+		assert_nil(list.delete_last)
+	end
+end
+
