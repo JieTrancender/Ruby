@@ -47,10 +47,12 @@ class SongList
 
 	def initialize
 		@songs = Array.new
+		@index = WordIndex.new
 	end
 
 	def append(song)
 		@songs.push(song)
+		@index.add_to_index(song, song.name, song.artist)
 		self
 	end
 
@@ -66,6 +68,10 @@ class SongList
 		@songs[index]
 	end
 
+	def length
+		@songs.size
+	end
+
 	#def with_title(title)
 	#	for i in 0...@songs.length
 	#		return @songs[i] if title == @songs[i].name
@@ -75,6 +81,10 @@ class SongList
 
 	def with_title(title)
 		@songs.find { |song| title == song.name}
+	end
+
+	def look_up(word)
+		@index.look_up(word)
 	end
 	
 
@@ -96,6 +106,50 @@ class MyLogger
 			@@logger
 		end
 	end
+end
+
+class WordIndex
+	def initialize
+		@index = {}
+	end
+
+	def add_to_index(obj, *phrases)
+		phrases.each do |phrase|
+			phrase.scan(/\w[-\w']+/) do |word|
+				word.downcase!
+				@index[word] = [] if @index[word].nil?
+				@index[word].push(obj)
+			end
+		end
+	end
+
+	def look_up(word)
+		@index[word.downcase]
+	end
+end
+
+
+File.open("songs_data.txt", "r") do |file|
+	songs = SongList.new
+
+	file.each do |line|
+		file, length, name, title = line.chomp.split(/\s*\|\s*/)
+		name.squeeze!(" ")
+		title.squeeze!(" ")
+		mins, secs = length.scan(/\d+/)
+		songs.append(Song.new(title, name, mins.to_i * 60 + secs.to_i))
+	end
+
+	(0...songs.length).each do |index|
+		puts songs[index]
+	end
+
+	puts "test index...."
+
+	puts songs.look_up("Fats")
+	puts songs.look_up("ain't")
+	puts songs.look_up("RED")
+	puts songs.look_up("WoRLD")
 end
 
 
@@ -120,21 +174,21 @@ s2 = Song.new("song_two", "artist_two", 234)
 #	end
 #end
 
-require 'minitest/autorun'
+#require 'minitest/autorun'
 
-class SongTest < Minitest::Test
-	def test_delete
-		list = SongList.new
-		s1 = Song.new("title1", "artist1", 123)
-		s2 = Song.new("title2", "artist2", 234)
-		s3 = Song.new("title3", "artest3", 345)
-
-		list.append(s1).append(s2).append(s3)
-
-		assert_equal(s1, list.delete_first)
-		assert_equal(s2, list.delete_first)
-		assert_equal(s3, list.delete_last)
-		assert_nil(list.delete_last)
-	end
-end
+#class SongTest < Minitest::Test
+#	def test_delete
+#		list = SongList.new
+#		s1 = Song.new("title1", "artist1", 123)
+#		s2 = Song.new("title2", "artist2", 234)
+#		s3 = Song.new("title3", "artest3", 345)
+#
+#		list.append(s1).append(s2).append(s3)
+#
+#		assert_equal(s1, list.delete_first)
+#		assert_equal(s2, list.delete_first)
+#		assert_equal(s3, list.delete_last)
+#		assert_nil(list.delete_last)
+#	end
+#end
 
