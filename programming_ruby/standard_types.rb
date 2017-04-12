@@ -23,3 +23,4 @@ string = <<END_OF_STRING
 END_OF_STRING
 
 puts string
+
